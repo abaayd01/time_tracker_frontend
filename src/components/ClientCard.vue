@@ -1,39 +1,43 @@
 <template>
-    <div
-        ref="client-card"
-        :class="[isActive ? 'active' : '', isDragging ? 'dragging' : '', 'client-card']"
-        :id="id"
-        @mouseenter="mouseEnter()"
-        @mouseleave="mouseLeave()"
-    ></div>
+    <interactable
+        :class="[clientCardClass, isInteracting && interactingClass]"
+        :onDragStart="onDragStart"
+        :onDragStop="onDragStop"
+        :onResizeStart="onResizeStart"
+        :onResizeStop="onResizeStop"
+    ></interactable>
 </template>
 
 <script>
 import { mapState, mapMutations } from "vuex";
-import { TweenLite } from "gsap";
-// import interact from "interactjs";
-// import InteractMethods from "../helpers/InteractMethods";
+import Interactable from "./Interactable";
 
 export default {
-    props: ["id"],
+    components: {
+        Interactable
+    },
     data: () => ({
         isActive: false,
-        isDragging: false
+        isInteracting: false,
+        clientCardClass: 'client-card',
+        interactingClass: 'interacting'
     }),
     computed: {
         ...mapState({
-            isTargetLocationSet: state => {
+            isTargetCellSet: state => {
                 return (
-                    state.calendar.targetLocation.top !== null &&
-                    state.calendar.targetLocation.left !== null
+                    state.calendar.targetCell.row !== null &&
+                    state.calendar.targetCell.col !== null
                 );
             },
-            targetLocation: state => state.calendar.targetLocation
+            targetCell: state => state.calendar.targetCell
         })
     },
+    props: ["id"],
     methods: {
         ...mapMutations({
-            setMode: "calendar/setMode"
+            setMode: "calendar/setMode",
+            addTimeEntryToCalendar: "calendar/addTimeEntryToCalendar"
         }),
         mouseEnter() {
             this.isActive = true;
@@ -42,52 +46,39 @@ export default {
             if (this.isDragging == false) {
                 this.isActive = false;
             }
+        },
+        onDragStart() {
+            this.isInteracting = true;
+        },
+        onDragStop() {
+            this.isInteracting = false;
+        },
+        onResizeStart() {
+            this.isInteracting = true;
+        },
+        onResizeStop() {
+            this.isInteracting = false;
         }
     },
-    mounted() {
-        // let x, y;
-        // window.jQuery(this.$refs["client-card"]).draggable({
-        //     start: () => {
-        //         this.isDragging = true;
-        //         this.setMode("dragging");
-        //     },
-        //     stop: event => {
-        //         this.setMode("viewing");
-        //         this.isDragging = false;
-
-        //         if (this.isTargetLocationSet) {
-        //             const targetTop = this.targetLocation.top;
-        //             const targetLeft = this.targetLocation.left;
-        //             jQuery(this.$refs["client-card"]).offset({ top: targetTop, left: targetLeft });
-        //         }
-        //     }
-        // });
-
-        // window.jQuery(this.$refs["client-card"]).resizable({
-        //     handles: "s",
-        //     grid: [20, 50]
-        // });
-    }
+    mounted() {}
 };
 </script>
 
 <style scoped>
 .client-card {
-    position: absolute;
     z-index: 99;
+    background-color: peachpuff;
     height: 100px;
     width: 154px;
-    border: 1px solid lightgray;
     border-radius: 10px;
-    background-color: rgba(200, 56, 25, 0.15);
 }
 
 .active {
     filter: brightness(0.8);
 }
 
-.dragging {
-    box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.04);
+.interacting {
+    box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.06);
     pointer-events: none;
 }
 </style>

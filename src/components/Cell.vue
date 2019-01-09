@@ -1,5 +1,7 @@
 <template>
     <td
+        :data-row="row"
+        :data-col="col"
         ref="cell"
         :class="{'active': isActive}"
         @mouseenter="mouseEnter()"
@@ -11,6 +13,10 @@
 import { mapState, mapMutations } from "vuex";
 
 export default {
+    props: {
+        row: Number,
+        col: Number
+    },
     data: () => ({
         isActive: false
     }),
@@ -23,13 +29,21 @@ export default {
     },
     methods: {
         ...mapMutations({
-            setTargetLoction: "calendar/setTargetLocation"
+            setTargetLoction: "calendar/setTargetLocation",
+            setTargetCell: "calendar/setTargetCell"
         }),
         mouseEnter() {
             if (this.allowHighlighting) {
                 this.isActive = true;
-                const { top, left } = this.$refs["cell"].getBoundingClientRect();
-                this.setTargetLoction({top, left});
+                const { top, left } = this.$refs[
+                    "cell"
+                ].getBoundingClientRect();
+
+                const row = this.$refs["cell"].getAttribute("data-row");
+                const col = this.$refs["cell"].getAttribute("data-col");
+
+                this.setTargetLoction({ top, left });
+                this.setTargetCell({ row, col });
             }
         },
         mouseLeave() {

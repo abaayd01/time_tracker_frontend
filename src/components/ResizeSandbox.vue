@@ -1,61 +1,23 @@
 <template>
     <div class="sandbox-container">
-        <div class="draggable">
-        </div>
+        <interactable class="test">
+            <div class="container">testing</div>
+        </interactable>
     </div>
 </template>
 
 <script>
-import interact from "interactjs";
-import InteractMethods from "../helpers/InteractMethods";
-
-let x, y;
-
-// interact(".draggable").draggable({
-//     onmove: event => {
-//         const target = event.target,
-//             x = (parseFloat(target.getAttribute("data-x")) || 0) + event.dx,
-//             y = (parseFloat(target.getAttribute("data-y")) || 0) + event.dy;
-
-//         target.style.webkitTransform = target.style.transform =
-//             "translate(" + x + "px, " + y + "px)";
-
-//         target.setAttribute("data-x", x);
-//         target.setAttribute("data-y", y);
-//     }
-// });
+import Interactable from "./Interactable";
 
 export default {
-    mounted() {
-        window.jQuery( ".draggable" ).draggable({
-        });
-
-        window.jQuery( ".draggable" ).resizable({
-            handles: "s",
-            grid: [20, 50]
-        });
-        // const resizeBox = document.querySelector(".draggable");
-        // const resizeBar = document.querySelector(".resize-bar");
-        // resizeBar.addEventListener("mousedown", event => {
-        //     event.preventDefault();
-        //     window.addEventListener("mousemove", resize);
-        //     window.addEventListener("mouseup", stopResize);
-        // });
-
-        // function resize(event) {
-        //     resizeBox.style.height = event.pageY - resizeBox.getBoundingClientRect().top + "px";
-        // }
-
-        // function stopResize() {
-        //     window.removeEventListener("mousemove", resize);
-        // }
+    components: {
+        Interactable
     }
 };
 </script>
 
 <style scoped>
 .sandbox-container {
-    background-color: grey;
     height: 100vh;
     width: 100vw;
     display: flex;
@@ -63,22 +25,19 @@ export default {
     justify-content: center;
 }
 
-.draggable {
-    width: 150px;
-    height: 200px;
+.test {
     background-color: white;
-    position: relative;
-    box-sizing: border-box;
+    height: 100px;
+    width: 200px;
 }
 
-.resize-bar {
-    width: 75px;
-    height: 10px;
-    background-color: blue;
-    position: absolute;
-    bottom: -5px;
-    left: 0px;
-    right: 0px;
-    margin: 0 auto;
+.container {
+    background-color: peachpuff;
+    border-radius: 10px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 </style>

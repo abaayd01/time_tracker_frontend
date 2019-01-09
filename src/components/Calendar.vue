@@ -2,8 +2,6 @@
     <div class="calendar-view">
         <div class="client-sidebar">
             <client-card id="a"/>
-            <client-card id="b"/>
-            <client-card id="c"/>
         </div>
         <div class="main">
             <div id="headings-container">

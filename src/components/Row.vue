@@ -5,13 +5,13 @@
                 {{ formattedHour }}
             </span>
         </td>
-        <cell />
-        <cell />
-        <cell />
-        <cell />
-        <cell />
-        <cell />
-        <cell />
+        <cell :col="1" :row="hour"/>
+        <cell :col="2" :row="hour"/>
+        <cell :col="3" :row="hour"/>
+        <cell :col="4" :row="hour"/>
+        <cell :col="5" :row="hour"/>
+        <cell :col="6" :row="hour"/>
+        <cell :col="7" :row="hour"/>
     </tr>
 </template>
 

@@ -2,10 +2,15 @@
 // shape: [{ id, quantity }]
 const state = {
 	mode: 'viewing',
+	targetCell: {
+		row: null,
+		col: null
+	},
 	targetLocation: {
 		top: null,
 		left: null
-	}
+    },
+    timeEntries: [] 
 };
 
 // getters
@@ -23,10 +28,22 @@ const actions = {};
 
 // mutations
 const mutations = {
+	setTargetCell(state, { row, col, cellRef }) {
+		state.targetCell = {
+			row,
+			col
+		};
+	},
 	setTargetLocation(state, { top, left }) {
 		state.targetLocation = {
 			top,
 			left
+		};
+	},
+	clearTargetCell(state) {
+		state.targetCell = {
+			row: null,
+			col: null
 		};
 	},
 	clearTargetLocation(state) {
@@ -37,6 +54,11 @@ const mutations = {
 	},
 	setMode(state, mode) {
 		state.mode = mode;
+	},
+	addTimeEntryToCalendar(state, { start_cell }) {
+		state.timeEntries.push({
+			start_cell
+		});
 	}
 };
 
