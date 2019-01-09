@@ -23,6 +23,7 @@ export default {
     computed: {
         ...mapState({
             allowHighlighting: state => {
+                // return true;
                 return state.calendar.mode === "dragging";
             }
         })

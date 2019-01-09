@@ -139,7 +139,7 @@ export default {
             self.onDragStart();
 
             const element = document.querySelector(".draggable");
-            document.body.style.cursor = "move";
+            document.body.style.cursor = "grabbing";
 
             const left0 = parseFloat(element.style.left) || 0;
             const clientX0 = event.clientX;

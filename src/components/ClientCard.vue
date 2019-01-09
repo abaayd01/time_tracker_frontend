@@ -49,9 +49,11 @@ export default {
         },
         onDragStart() {
             this.isInteracting = true;
+            this.setMode('dragging');
         },
         onDragStop() {
             this.isInteracting = false;
+            this.setMode('viewing');
         },
         onResizeStart() {
             this.isInteracting = true;
@@ -71,6 +73,10 @@ export default {
     height: 100px;
     width: 154px;
     border-radius: 10px;
+}
+
+.client-card:hover{
+    cursor: grab;
 }
 
 .active {
