@@ -173,7 +173,7 @@ export default {
 
 <style scoped>
 .draggable {
-    position: relative;
+    /* position: relative; */
     user-select: none;
 }
 

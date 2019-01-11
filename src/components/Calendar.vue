@@ -1,7 +1,7 @@
 <template>
     <div class="calendar-view">
         <div class="client-sidebar">
-            <client-card id="a"/>
+            <calendar-event></calendar-event>
         </div>
         <div class="main">
             <div id="headings-container">
@@ -36,13 +36,12 @@ import Scrollbar from "smooth-scrollbar";
 
 import Row from "./Row";
 import SpacerRow from "./SpacerRow";
-import ClientCard from "./ClientCard";
+import CalendarEvent from './CalendarEvent';
 
 export default {
     components: {
         Row,
-        SpacerRow,
-        ClientCard
+        CalendarEvent,
     },
     mounted() {
         Scrollbar.init(document.querySelector("#headings-container"));
